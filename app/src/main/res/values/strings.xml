@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Transform Me AI</string>
+    <string name="tagline">See yourself in ANY style in seconds</string>
+    <string name="sign_in_with_google">Continue with Google</string>
+    <string name="capture">Capture</string>
+    <string name="scanning_title">Transforming your look</string>
+    <string name="scanning_subtitle">Our AI is crafting 5 unique styles for you…</string>
+    <string name="your_looks">Your looks</string>
+    <string name="download">Download</string>
+    <string name="share">Share</string>
+    <string name="unlock_all">Unlock All Looks</string>
+    <string name="paywall_title">Unlock every style</string>
+    <string name="paywall_body">Get instant access to all AI-generated transformations, new weekly styles, and HD exports.</string>
+    <string name="mock_price">$4.99 / month — mock checkout</string>
+    <string name="style_free">Original glow-up</string>
+    <string name="style_hair">Fresh hairstyle</string>
+    <string name="style_outfit">Runway outfit</string>
+    <string name="style_anime">Anime &amp; cartoon</string>
+    <string name="style_editorial">Editorial lighting</string>
+    <string name="error_generic">Something went wrong. Please try again.</string>
+    <string name="saved_to_pictures">Saved to Pictures</string>
+    <string name="permission_camera_rationale">Camera access is needed to capture your photo.</string>
+    <string name="try_again">Try again</string>
+    <string name="take_another_photo">Take another photo</string>
+</resources>
