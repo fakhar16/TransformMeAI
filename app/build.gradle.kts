@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "com.transformmeai"
+    namespace = "com.fuza.transformmeai"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.transformmeai"
+        applicationId = "com.fuza.transformmeai"
         minSdk = 26
         targetSdk = 35
         versionCode = 1
