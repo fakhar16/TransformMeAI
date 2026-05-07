@@ -1,6 +1,9 @@
 package com.transformmeai.ui.screens.result
 
 import android.content.Intent
+import android.graphics.RenderEffect
+import android.graphics.Shader
+import android.os.Build
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -37,6 +40,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.asComposeRenderEffect
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -46,7 +51,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import coil.transform.BlurTransformation
 import com.transformmeai.R
 import com.transformmeai.domain.model.LoadableUiState
 import com.transformmeai.ui.components.PrimaryButton
@@ -192,16 +196,24 @@ private fun LookTile(
 ) {
     val context = LocalContext.current
     val imageRequest =
-        remember(imageUrl, locked) {
-            val builder =
-                ImageRequest
-                    .Builder(context)
-                    .data(imageUrl)
-                    .crossfade(true)
-            if (locked) {
-                builder.transformations(BlurTransformation(context, radius = 25f))
+        remember(imageUrl) {
+            ImageRequest
+                .Builder(context)
+                .data(imageUrl)
+                .crossfade(true)
+                .build()
+        }
+
+    val lockedBlurModifier =
+        if (locked && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            Modifier.graphicsLayer {
+                renderEffect =
+                    RenderEffect
+                        .createBlurEffect(20f, 20f, Shader.TileMode.CLAMP)
+                        .asComposeRenderEffect()
             }
-            builder.build()
+        } else {
+            Modifier
         }
 
     Card(
@@ -230,7 +242,10 @@ private fun LookTile(
                 AsyncImage(
                     model = imageRequest,
                     contentDescription = title,
-                    modifier = Modifier.fillMaxSize(),
+                    modifier =
+                        Modifier
+                            .fillMaxSize()
+                            .then(lockedBlurModifier),
                     contentScale = ContentScale.Crop,
                 )
                 if (locked) {
@@ -238,7 +253,11 @@ private fun LookTile(
                         modifier =
                             Modifier
                                 .fillMaxSize()
-                                .background(Color.Black.copy(alpha = 0.35f)),
+                                .background(
+                                    Color.Black.copy(
+                                        alpha = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) 0.28f else 0.45f,
+                                    ),
+                                ),
                         contentAlignment = Alignment.Center,
                     ) {
                         Icon(
